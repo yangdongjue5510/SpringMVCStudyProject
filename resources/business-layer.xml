@@ -12,7 +12,7 @@
     <aop:aspectj-autoproxy/>
 
 <!--    데이터소스 도입-->
-    <context:property-placeholder location="datasource.properties"/>
+    <context:property-placeholder location="classpath:datasource.properties"/>
 <!--    데이터소스 내용을 저장할 빈 등록-->
     <bean id="dataSource"
           class="org.apache.commons.dbcp.BasicDataSource"
@@ -30,5 +30,17 @@ JdbcTemplate 객체는 반드시 DataSource 객체를 물고(참조하고) 있�
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <!--	스프링과 myBatis연동 설정-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:sql-map-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSession"/>
+    </bean>
+
+    <!--    DAO 정책 결정-->
+    <bean id="BoardDAO" class="main.java.biz.board.BoardDAOMyBatis"/>
 
 </beans>
