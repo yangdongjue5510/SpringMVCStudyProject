@@ -6,6 +6,7 @@
 
     <typeAliases>
         <typeAlias alias="board" type="main.java.biz.board.BoardVO"/>
+        <typeAlias alias="user" type="main.java.biz.user.UserVO"/>
     </typeAliases>
     <mappers>
         <mapper resource="mappings/board-mapping.xml"/>
