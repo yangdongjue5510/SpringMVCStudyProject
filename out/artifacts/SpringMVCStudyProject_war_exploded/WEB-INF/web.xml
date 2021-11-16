@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <!--    컨텍스트 로더 리스너가 발동되면 즉시 로딩됨(비즈니스 xml)-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+<!--    컨텍스트 파라미터로 비즈니스 xml을 설정-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:business-layer.xml</param-value>
+    </context-param>
+
+    
+<!--    디스패처 서블릿 설정-->
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/config/presentation-layer.xml</param-value>
+        </init-param>
+    </servlet>
+<!--    레이지 로딩으로 서블릿 실행-->
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+</web-app>
